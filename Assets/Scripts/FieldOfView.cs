@@ -8,6 +8,7 @@ public class FieldOfView : MonoBehaviour {
 
     public LayerMask targetMask;
     public LayerMask obstacleMask;
+    public LayerMask floorMask;
 
     private GameObject Targets;
     private Transform [] all_target;
@@ -59,7 +60,8 @@ public class FieldOfView : MonoBehaviour {
             float dstToTarget = Vector3.Distance (transform.position, target.position);
 
             if (!Physics.Raycast (transform.position, dirToTarget, dstToTarget, obstacleMask)) {
-                visibleTargets.Add (target);
+                if (!Physics.Raycast (transform.position, dirToTarget, dstToTarget, floorMask)) 
+                    visibleTargets.Add (target);
                 target.GetComponent<Renderer>().enabled = true;
             }
             else{
