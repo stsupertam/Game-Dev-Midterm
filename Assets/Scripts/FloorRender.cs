@@ -40,7 +40,7 @@ public class FloorRender : MonoBehaviour {
 
 
     void Start () {
-        StartCoroutine ("RenderFloorsWithDelay", .5f);
+        StartCoroutine ("RenderFloorsWithDelay", .25f);
     }
 
     IEnumerator RenderFloorsWithDelay (float delay) {
