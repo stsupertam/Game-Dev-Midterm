@@ -76,5 +76,13 @@ public class PlayerControllerPhysicBase : MonoBehaviour
             Debug.Log("Checkpoint: " + other.gameObject.name);
             GameManager.instance.checkPoint = other.gameObject.transform.position;
         }
+        else if (other.gameObject.CompareTag("Key"))
+        {
+            Transform parent = other.gameObject.transform.parent;
+            parent.gameObject.GetComponent<DoorController>().keys -= 1;
+            Debug.Log("Key left: " + parent.gameObject.GetComponent<DoorController>().keys);
+            Destroy(other.gameObject);
+        }
+
     }
 }
