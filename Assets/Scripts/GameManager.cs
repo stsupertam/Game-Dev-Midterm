@@ -5,33 +5,17 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameObject Checkpoint;
     public GameObject Player;
+    public Vector3 startPoint;
     [HideInInspector]
-    public bool[] checkpoints;
+    public bool isGameover = false;
     [HideInInspector]
-	public bool isGameover = false;
+    public Vector3 checkPoint;
 
-
-    void Checkpoint_init()
+    void Respawn()
     {
-        checkpoints = new bool[Checkpoint.gameObject.transform.childCount];
-        for (int i = 0; i < checkpoints.Length; i++)
-        {
-            checkpoints[i] = false;
-        }
+        Player.transform.position = checkPoint;
     }
-
-	void Respawn()
-	{
-		Transform _checkpoint;
-		for(int i=0; i< checkpoints.Length; i++){
-			if(checkpoints[i]){
-				_checkpoint = Checkpoint.gameObject.transform.GetChild(i);
-				Player.transform.position = _checkpoint.transform.position; 
-			}
-		}
-	}
 
     void Awake()
     {
@@ -39,16 +23,17 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         else
             instance = this;
-        Checkpoint_init();
-
+        checkPoint = startPoint;
+        Player.transform.position = startPoint;
     }
 
     void Update()
     {
-		if(isGameover){
-			Respawn();
-			isGameover = false;
-		}
+        if (isGameover)
+        {
+            Respawn();
+            isGameover = false;
+        }
 
     }
 

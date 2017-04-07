@@ -74,12 +74,7 @@ public class PlayerControllerPhysicBase : MonoBehaviour
         if (other.gameObject.CompareTag("Checkpoint"))
         {
             Debug.Log("Checkpoint: " + other.gameObject.name);
-			for(int i=0; i< GameManager.instance.checkpoints.Length; i++){
-				GameManager.instance.checkpoints[i] = false;
-				if(int.Parse(other.gameObject.name) == i + 1){
-					GameManager.instance.checkpoints[i] = true;
-				}
-			}
+            GameManager.instance.checkPoint = other.gameObject.transform.position;
         }
     }
 }
