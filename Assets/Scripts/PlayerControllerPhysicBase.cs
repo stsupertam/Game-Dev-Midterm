@@ -26,9 +26,10 @@ public class PlayerControllerPhysicBase : MonoBehaviour
     {
         if (rb.velocity.y == 0 && !isGrounded)
             isGrounded = true;
-		if (transform.position.y < -5){
-			GameManager.instance.isGameover = true;
-		}	
+        if (transform.position.y < -5)
+        {
+            GameManager.instance.isGameover = true;
+        }
     }
 
     void FixedUpdate()
@@ -83,6 +84,29 @@ public class PlayerControllerPhysicBase : MonoBehaviour
             Debug.Log("Key left: " + parent.gameObject.GetComponent<DoorController>().keys);
             Destroy(other.gameObject);
         }
+        else if (other.gameObject.CompareTag("Item"))
+        {
+            ItemController item = other.gameObject.GetComponent<ItemController>();
+            if (item.type != "Bullet")
+            {
+                int maxItem = GameManager.instance.maxItem[item.type];
+                if (GameManager.instance.item_quantity[item.type] != maxItem)
+                {
+                    if(GameManager.instance.item_quantity[item.type] + item.quantity > maxItem){
+                        GameManager.instance.item_quantity[item.type] = maxItem;
+                    }
+                    else
+                        GameManager.instance.item_quantity[item.type] += item.quantity;
+                    Debug.Log("Item : " + GameManager.instance.item_quantity[item.type]);
+                    Debug.Log("maxItem : " + GameManager.instance.maxItem[item.type]);
+                    Destroy(other.gameObject);
+                }
+            }
+            else{
+                GameManager.instance.item_quantity[item.type] += item.quantity;
+                Destroy(other.gameObject);
+            }
 
+        }
     }
 }
