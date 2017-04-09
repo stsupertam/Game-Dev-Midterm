@@ -34,6 +34,7 @@ public class Timer : MonoBehaviour
             Debug.Log("Time : " + t);
             Debug.Log("PlayerPrefs : " + PlayerPrefs.GetFloat("Time"));
             if(t < PlayerPrefs.GetFloat("Time")){
+                Debug.Log("Hello");
                 SceneManager.LoadScene("End Game");
             }
             else

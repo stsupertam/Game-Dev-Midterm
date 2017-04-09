@@ -98,8 +98,6 @@ public class PlayerControllerPhysicBase : MonoBehaviour
                     }
                     else
                         GameManager.instance.item_quantity[item.type] += item.quantity;
-                    Debug.Log("Item : " + GameManager.instance.item_quantity[item.type]);
-                    Debug.Log("maxItem : " + GameManager.instance.maxItem[item.type]);
                     Destroy(other.gameObject);
                 }
             }
@@ -112,7 +110,6 @@ public class PlayerControllerPhysicBase : MonoBehaviour
         else if (other.gameObject.CompareTag("Finish"))
         {
             GameManager.instance.isEnd = true;
-
         }
     }
 }
