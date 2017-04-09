@@ -92,7 +92,8 @@ public class PlayerControllerPhysicBase : MonoBehaviour
                 int maxItem = GameManager.instance.maxItem[item.type];
                 if (GameManager.instance.item_quantity[item.type] != maxItem)
                 {
-                    if(GameManager.instance.item_quantity[item.type] + item.quantity > maxItem){
+                    if (GameManager.instance.item_quantity[item.type] + item.quantity > maxItem)
+                    {
                         GameManager.instance.item_quantity[item.type] = maxItem;
                     }
                     else
@@ -102,10 +103,15 @@ public class PlayerControllerPhysicBase : MonoBehaviour
                     Destroy(other.gameObject);
                 }
             }
-            else{
+            else
+            {
                 GameManager.instance.item_quantity[item.type] += item.quantity;
                 Destroy(other.gameObject);
             }
+        }
+        else if (other.gameObject.CompareTag("Finish"))
+        {
+            GameManager.instance.isEnd = true;
 
         }
     }

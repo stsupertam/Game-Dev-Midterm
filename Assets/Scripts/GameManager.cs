@@ -1,20 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameObject Player;
+    public Canvas timer;
+    public GameObject Player = null;
     public Vector3 startPoint;
 
     public int maxHealth;
     public int maxBomb;
+    public int maxLife;
     public int health;
+    public int life;
     public int bullet;
     public int bomb;
     [HideInInspector]
+    public string minutes = "Hello";
+    [HideInInspector]
+    public string seconds = "Darkness";
+    [HideInInspector]
+    public float time_count;
+    [HideInInspector]
     public bool isGameover = false;
+    [HideInInspector]
+    public bool isEnd = false;
     [HideInInspector]
     public Vector3 checkPoint;
     [HideInInspector]
@@ -36,25 +48,33 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
-        checkPoint = startPoint;
-        Player.transform.position = startPoint;
-        maxItem.Add("Bomb", maxBomb);
-        maxItem.Add("Health", maxHealth);
-        item_quantity.Add("Bomb", bomb);
-        item_quantity.Add("Health", health);
-        item_quantity.Add("Bullet", bullet);
+        if (Player)
+        {
+            checkPoint = startPoint;
+            Player.transform.position = startPoint;
+            maxItem.Add("Bomb", maxBomb);
+            maxItem.Add("Health", maxHealth);
+            maxItem.Add("Life", maxLife);
+            item_quantity.Add("Bomb", bomb);
+            item_quantity.Add("Health", health);
+            item_quantity.Add("Life", life);
+            item_quantity.Add("Bullet", bullet);
+        }
     }
 
     void Update()
     {
-        if (isGameover)
+        if (Player)
         {
-            Respawn();
-            isGameover = false;
+            if (isGameover)
+            {
+                Respawn();
+                isGameover = false;
+            }
+            health = item_quantity["Health"];
+            bomb = item_quantity["Bomb"];
+            bullet = item_quantity["Bullet"];
+            life = item_quantity["Life"];
         }
-        health = item_quantity["Health"];
-        bomb = item_quantity["Bomb"];
-        bullet = item_quantity["Bullet"];
     }
-
 }
